@@ -1,3 +1,53 @@
 @tailwind base;
-@tawilwind component;
+@tailwind components;
 @tailwind utilities;
+
+.grass {
+  @apply bg-green-300;
+}
+.fire {
+  @apply bg-yellow-300;
+}
+.water {
+  @apply bg-blue-300;
+}
+.bug {
+  @apply bg-green-600;
+}
+.flying {
+  @apply bg-gray-400;
+}
+.dark {
+  @apply bg-gray-600;
+}
+
+.dragon {
+  @apply bg-indigo-300;
+}
+.electric {
+  @apply bg-yellow-300;
+}
+.fairy {
+  @apply bg-pink-300;
+}
+.fighting {
+  @apply bg-yellow-700;
+}
+.ghost {
+  @apply bg-red-400;
+}
+.ground {
+  @apply bg-yellow-500;
+}
+.ice {
+  @apply bg-blue-300;
+}
+.normal {
+  @apply bg-purple-300;
+}
+.pshychic {
+  @apply bg-pink-400;
+}
+.water {
+  @apply bg-blue-500;
+}

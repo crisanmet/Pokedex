@@ -15,39 +15,84 @@
     <div>
       <img src="src/svg/logo.svg" alt="logo pokemon" class="block m-auto p-2" />
     </div>
-    <main class="main">
-      <div class="animate__animated animate__pulse animate__infinite">
-        <img
-          src="src/svg/pikachu.svg"
-          alt="pikachu"
-          class="block m-auto h-80"
-        />
-      </div>
-    </main>
-    <template>
+    <main class="main flex flex-wrap sm:flex justify-center"></main>
+    <template class="template-pokemon">
       <div>
-        <div>
-          <img src="" alt="" />
-        </div>
-        <div>
-          <h2></h2>
-        </div>
-        <div>
-          <div>
-            <h4></h4>
-            <span></span>
-          </div>
-          <div>
-            <h4></h4>
-            <span></span>
-          </div>
-          <div>
-            <h4></h4>
-            <span></span>
+        <div
+          class="w-64 mt-24 p-4 m-auto transform hover:scale-110 cursor-pointer"
+        >
+          <img
+            src=""
+            alt=""
+            class="
+              img-pokemon
+              rounded-t-2xl
+              shadow-2xl
+              lg:w-full
+              2xl:w-full 2xl:h-44
+              object-contain
+              h-48
+              w-full
+            "
+          />
+          <div class="bg-gray-200 shadow-2xl rounded-b-3xl">
+            <div id="color-tipo">
+              <h2
+                class="
+                  text-center text-gray-800 text-2xl
+                  font-bold
+                  pt-6
+                  nombre
+                  capitalize
+                "
+              ></h2>
+              <div class="flex justify-around uppercase px-6 pt-4 pb-2">
+                <span
+                  class="
+                    inline-block
+                    bg-gray-200
+                    rounded-full
+                    px-3
+                    py-1
+                    text-sm
+                    font-semibold
+                    text-gray-700
+                    mr-2
+                    mb-2
+                    tipo1
+                  "
+                ></span>
+              </div>
+
+              <div
+                class="
+                  pb-10
+                  uppercase
+                  text-center
+                  tracking-wide
+                  flex
+                  justify-around
+                "
+              >
+                <div>
+                  <p class="text-gray-700 text-sm">Ataque</p>
+                  <p class="text-lg font-semibold text-black ataque"></p>
+                </div>
+                <div>
+                  <p class="text-gray-700 text-sm">Defensa</p>
+                  <p class="text-lg font-semibold text-black defensa"></p>
+                </div>
+                <div>
+                  <p class="text-gray-700 text-sm">Exp</p>
+                  <p class="text-lg font-semibold text-black exp"></p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </template>
+
     <footer>
       <div class="links"></div>
     </footer>
