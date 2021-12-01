@@ -3,14 +3,17 @@ const API = "https://pokeapi.co/api/v2/pokemon/";
 const $main = document.querySelector(".main");
 const $template = document.querySelector(".template-pokemon").content;
 const $fragment = document.createDocumentFragment();
+const $loader = document.querySelector(".loader");
+const $buscador = document.querySelector(".buscador");
 
 const obtenerListadoPokemons = async (URL) => {
   try {
     let respuestaUrl = await fetch(URL);
     let jsonRespuesta = await respuestaUrl.json();
 
+    activarLoader();
     obtenerUrlPokemons(jsonRespuesta);
-    paginacionPokemon(jsonRespuesta);
+    paginadorPokemon(jsonRespuesta);
   } catch (err) {
     console.log(err);
     $main.innerHTML = `<p>Error al cargar los pokemones</p>`;
@@ -49,33 +52,57 @@ const renderizarCardPokemon = (pokemon) => {
   $fragment.appendChild(clone);
 };
 
-const paginacionPokemon = (link) => {
+const paginadorPokemon = (link) => {
   let $siguientePagina = link.next;
-  let $anteriorPagina = link.previuos;
+  let $anteriorPagina = link.previous;
+  let $div = document.createElement("div");
+  $div.className = "contenedor-links";
 
-  if ($siguientePagina) {
-    let anchor = document.createElement("a");
-    anchor.setAttribute("href", $siguientePagina);
-    anchor.className = "paginador";
-    anchor.innerHTML = `⏭️`;
-    $links.appendChild(anchor);
-  }
   if ($anteriorPagina) {
+    $links.innerHTML = ``;
     let anchor = document.createElement("a");
+    let imgFlecha = document.createElement("img");
     anchor.setAttribute("href", $anteriorPagina);
-    anchor.className = "paginador";
-    anchor.innerHTML = `⏭️`;
-    $links.appendChild(anchor);
+    imgFlecha.className = "paginador";
+    imgFlecha.setAttribute("src", "src/svg/previous.png");
+
+    anchor.appendChild(imgFlecha);
+    $div.appendChild(anchor);
   }
+  if ($siguientePagina) {
+    $links.innerHTML = ``;
+    let anchor = document.createElement("a");
+    let imgFlecha = document.createElement("img");
+    anchor.setAttribute("href", $siguientePagina);
+    imgFlecha.className = "paginador";
+    imgFlecha.setAttribute("src", "src/svg/next.png");
+
+    anchor.appendChild(imgFlecha);
+    $div.appendChild(anchor);
+  }
+  $links.appendChild($div);
 };
+
+$buscador.addEventListener("click", (e) => {
+  console.log(e);
+});
+
+const activarLoader = () => {
+  $main.innerHTML = `
+                  <div class="animate__animated animate__pulse animate__infinite loader">
+                      <img src="src/svg/pikachu.svg" alt="pikachu" class="block m-auto h-40"/>
+                  </div>
+`;
+};
+
 document.addEventListener("DOMContentLoaded", () => {
   obtenerListadoPokemons(API);
 });
+
 document.addEventListener("click", (e) => {
   e.preventDefault();
   if (e.target.classList.contains("paginador")) {
-    let $pagina = e.target.getAttribute("href");
+    let $pagina = e.target.parentElement.getAttribute("href");
     obtenerListadoPokemons($pagina);
-    console.log($pagina);
   }
 });

@@ -31960,6 +31960,12 @@ video {
   background-color: rgba(59, 130, 246, var(--tw-bg-opacity));
 }
 
+.contenedor-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
