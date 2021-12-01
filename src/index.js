@@ -1,26 +1,19 @@
 const $links = document.querySelector(".links");
-const URL = "https://pokeapi.co/api/v2/pokemon/";
+const API = "https://pokeapi.co/api/v2/pokemon/";
 const $main = document.querySelector(".main");
 const $template = document.querySelector(".template-pokemon").content;
 const $fragment = document.createDocumentFragment();
 
-const obtenerListadoPokemons = async () => {
+const obtenerListadoPokemons = async (URL) => {
   try {
     let respuestaUrl = await fetch(URL);
     let jsonRespuesta = await respuestaUrl.json();
 
-    $main.innerHTML = `<div class="animate__animated animate__pulse animate__infinite">
-                          <img src="src/svg/pikachu.svg" alt="pikachu" class="block m-auto h-40"/>
-                       </div>`;
-
     obtenerUrlPokemons(jsonRespuesta);
-    if (!respuestaUrl.ok)
-      throw {
-        status: respuestaUrl.status,
-      };
+    paginacionPokemon(jsonRespuesta);
   } catch (err) {
     console.log(err);
-    $main.innerHTML = `<p>Error: ${err.status}</p>`;
+    $main.innerHTML = `<p>Error al cargar los pokemones</p>`;
   }
 };
 
@@ -30,14 +23,10 @@ const obtenerUrlPokemons = async (pokemons) => {
       let respuestaPokemon = await fetch(pokemons.results[i].url);
       let pokemon = await respuestaPokemon.json();
 
-      if (!respuestaPokemon.ok)
-        throw {
-          status: respuestaPokemon.status,
-        };
       renderizarCardPokemon(pokemon);
     } catch (err) {
       console.log(err);
-      $main.innerHTML = `<p>Error: ${err.status}</p>`;
+      $main.innerHTML = `<p>Error al cargar los pokemones</p>`;
     }
   }
   $main.innerHTML = ``;
@@ -60,6 +49,33 @@ const renderizarCardPokemon = (pokemon) => {
   $fragment.appendChild(clone);
 };
 
+const paginacionPokemon = (link) => {
+  let $siguientePagina = link.next;
+  let $anteriorPagina = link.previuos;
+
+  if ($siguientePagina) {
+    let anchor = document.createElement("a");
+    anchor.setAttribute("href", $siguientePagina);
+    anchor.className = "paginador";
+    anchor.innerHTML = `⏭️`;
+    $links.appendChild(anchor);
+  }
+  if ($anteriorPagina) {
+    let anchor = document.createElement("a");
+    anchor.setAttribute("href", $anteriorPagina);
+    anchor.className = "paginador";
+    anchor.innerHTML = `⏭️`;
+    $links.appendChild(anchor);
+  }
+};
 document.addEventListener("DOMContentLoaded", () => {
-  obtenerListadoPokemons();
+  obtenerListadoPokemons(API);
+});
+document.addEventListener("click", (e) => {
+  e.preventDefault();
+  if (e.target.classList.contains("paginador")) {
+    let $pagina = e.target.getAttribute("href");
+    obtenerListadoPokemons($pagina);
+    console.log($pagina);
+  }
 });
