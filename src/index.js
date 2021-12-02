@@ -5,6 +5,9 @@ const $template = document.querySelector(".template-pokemon").content;
 const $fragment = document.createDocumentFragment();
 const $loader = document.querySelector(".loader");
 const $buscador = document.querySelector(".buscador");
+const $templatePokemonBuscado = document.querySelector(
+  ".template-pokemon-buscado"
+).content;
 
 const obtenerListadoPokemons = async (URL) => {
   try {
@@ -83,21 +86,47 @@ const paginadorPokemon = (link) => {
   $links.appendChild($div);
 };
 
+const renderizarCardPokemonBuscado = (pokemon) => {
+  $templatePokemonBuscado
+    .querySelector(".img-pokemon")
+    .setAttribute("src", pokemon.sprites.other.dream_world.front_default);
+
+  $templatePokemonBuscado.querySelector(".nombre").textContent = pokemon.name;
+  $templatePokemonBuscado.querySelector(".id").textContent = `ID:${pokemon.id}`;
+  $templatePokemonBuscado.querySelector(".tipo1").textContent =
+    pokemon.types[0].type.name;
+  $templatePokemonBuscado.querySelector("#color-tipo").className =
+    pokemon.types[0].type.name;
+  $templatePokemonBuscado.querySelector(".altura").textContent = pokemon.height;
+  $templatePokemonBuscado.querySelector(".peso").textContent = pokemon.weight;
+  $templatePokemonBuscado.querySelector(".habilidad").textContent =
+    pokemon.abilities[0].ability.name;
+  const clone = $templatePokemonBuscado.cloneNode(true);
+  $main.innerHTML = "";
+  $main.appendChild(clone);
+};
+
 $buscador.addEventListener("click", (e) => {
-  console.log(e);
+  const $inputBuscador = document.querySelector(".input-buscador");
+  fetch(
+    `https://pokeapi.co/api/v2/pokemon/${$inputBuscador.value.toLowerCase()}`
+  )
+    .then((res) => res.json())
+    .then((pokemon) => renderizarCardPokemonBuscado(pokemon))
+    .catch(
+      (err) =>
+        ($main.innerHTML = `<p class="p-3">No se encontró el Pokemon...Probá con Charmander.</p>`)
+    );
+  $inputBuscador.value = "";
 });
 
 const activarLoader = () => {
   $main.innerHTML = `
-                  <div class="animate__animated animate__pulse animate__infinite loader">
+                  <div class="animate__animated animate__pulse animate__infinite loader p-4">
                       <img src="src/svg/pikachu.svg" alt="pikachu" class="block m-auto h-40"/>
                   </div>
 `;
 };
-
-document.addEventListener("DOMContentLoaded", () => {
-  obtenerListadoPokemons(API);
-});
 
 document.addEventListener("click", (e) => {
   e.preventDefault();
@@ -105,4 +134,8 @@ document.addEventListener("click", (e) => {
     let $pagina = e.target.parentElement.getAttribute("href");
     obtenerListadoPokemons($pagina);
   }
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  obtenerListadoPokemons(API);
 });

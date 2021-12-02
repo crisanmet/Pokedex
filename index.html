@@ -16,7 +16,8 @@
       <img src="src/svg/logo.svg" alt="logo pokemon" class="block m-auto p-2" />
     </div>
     <nav class="links"></nav>
-    <div class="flex relative mx-auto w-1/4 max-w-md mt-7">
+
+    <div class="flex relative mx-auto max-w-md mt-7">
       <input
         class="
           border-2 border-primary
@@ -69,9 +70,7 @@
     </main>
     <template class="template-pokemon">
       <div>
-        <div
-          class="w-64 mt-24 p-4 m-auto transform hover:scale-110 cursor-pointer"
-        >
+        <div class="w-64 mt-24 p-4 m-auto transform hover:scale-105">
           <img
             src=""
             alt=""
@@ -144,6 +143,75 @@
       </div>
     </template>
 
+    <template class="template-pokemon-buscado">
+      <div>
+        <div
+          class="w-96 h-96 mt-24 md:flex p-4 m-auto transform hover:scale-110"
+        >
+          <img
+            src=""
+            alt=""
+            class="
+              img-pokemon
+              rounded-t-2xl
+              shadow-2xl
+              lg:w-full
+              2xl:w-full 2xl:h-44
+              object-contain
+              w-full
+            "
+          />
+          <div class="bg-gray-200 shadow-2xl rounded-b-3xl">
+            <div id="color-tipo">
+              <h2
+                class="
+                  text-center text-gray-800 text-2xl
+                  font-bold
+                  pt-6
+                  nombre
+                  capitalize
+                "
+              ></h2>
+              <h3
+                class="text-center text-gray-400 text-2xl font-bold pt-6 id"
+              ></h3>
+              <div class="flex justify-around uppercase px-6 pt-4 pb-2">
+                <span
+                  class="
+                    inline-block
+                    bg-gray-500
+                    rounded-full
+                    px-3
+                    py-1
+                    text-sm
+                    font-semibold
+                    text-gray-700
+                    mr-2
+                    mb-2
+                    tipo1
+                  "
+                ></span>
+              </div>
+
+              <div class="pb-10 uppercase text-center tracking-wide">
+                <div>
+                  <p class="text-gray-700 text-sm">Altura</p>
+                  <p class="text-lg font-semibold text-black altura"></p>
+                </div>
+                <div>
+                  <p class="text-gray-700 text-sm">Peso</p>
+                  <p class="text-lg font-semibold text-black peso"></p>
+                </div>
+                <div>
+                  <p class="text-gray-700 text-sm">Habilidad</p>
+                  <p class="text-lg font-semibold text-black habilidad"></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </template>
     <script src="src/index.js"></script>
   </body>
 </html>
